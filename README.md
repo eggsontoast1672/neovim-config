@@ -7,7 +7,7 @@ did. Here it is.
 
 ## Dependencies
 
-This config is built around neovim 0.7.0+, so make sure to have that. I decided
+This config is built around Neovim 0.9.0+, so make sure to have that. I decided
 to have Packer, the plugin manager, bootstrapped so that I don't have to clone
 it down manually every time. It just makes everything easier. Aside from that,
 there are a few other programs that need to be installed.

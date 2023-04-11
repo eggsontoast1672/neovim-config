@@ -8,10 +8,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*",
 })
 
-require("core.plugins")
-
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
-vim.keymap.set("n", "<leader>s", vim.cmd.Sexplore)
-vim.keymap.set("n", "<leader>v", vim.cmd.Vexplore)
+vim.keymap.set("n", "<leader>oe", vim.cmd.Explore)
+vim.keymap.set("n", "<leader>ox", vim.cmd.Sexplore)
+vim.keymap.set("n", "<leader>ov", vim.cmd.Vexplore)
+
+require("core.plugins")
