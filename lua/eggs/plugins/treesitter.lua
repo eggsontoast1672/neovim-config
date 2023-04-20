@@ -1,5 +1,5 @@
 require("nvim-treesitter.configs").setup({
-    ensure_installed = { "cmake", "cpp", "css", "html", "lua", "markdown", "vim" },
+    ensure_installed = require("eggs.settings").treesitter_languages,
     highlight = {
         enable = true,
     },

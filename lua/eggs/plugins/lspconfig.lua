@@ -1,4 +1,4 @@
--- Just because :)
+local servers = require("eggs.settings").lsp_servers
 
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
@@ -30,17 +30,10 @@ require("neodev").setup()
 require("mason").setup()
 
 local mason_lspconfig = require("mason-lspconfig")
-local servers = {
-    clangd = {},
-    lua_ls = {
-        Lua = {
-            workspace = {
-                checkThirdParty = false,
-            },
-        },
-    },
-}
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- If this breaks stuff, comment it out. Added for jsonls
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 mason_lspconfig.setup({
     ensure_installed = vim.tbl_keys(servers),

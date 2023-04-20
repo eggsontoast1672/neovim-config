@@ -1,26 +1,27 @@
 local plugins = {
-    {
-        "folke/neodev.nvim",
-    },
-    {
-        "L3MON4D3/LuaSnip",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-path",
-        "hrsh7th/nvim-cmp",
-        "saadparwaiz1/cmp_luasnip",
-    },
+    "L3MON4D3/LuaSnip",
+    "folke/neodev.nvim",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-path",
+    "hrsh7th/nvim-cmp",
+    "saadparwaiz1/cmp_luasnip",
+    "tribela/vim-transparent",
+    "williamboman/mason-lspconfig.nvim",
+
+    ----------------
+
     {
         "neovim/nvim-lspconfig",
         config = function()
-            require("config.plugins.lspconfig")
+            require("eggs.plugins.lspconfig")
         end,
     },
     {
         "nvim-telescope/telescope.nvim",
         config = function()
-            require("config.plugins.telescope")
+            require("eggs.plugins.telescope")
         end,
         requires = {
             "nvim-lua/plenary.nvim",
@@ -30,7 +31,7 @@ local plugins = {
     {
         "nvim-treesitter/nvim-treesitter",
         config = function()
-            require("config.plugins.treesitter")
+            require("eggs.plugins.treesitter")
         end,
         run = function()
             pcall(vim.cmd.TSUpdate)
@@ -47,9 +48,6 @@ local plugins = {
         run = function()
             pcall(vim.cmd.MasonUpdate)
         end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
     },
 }
 
