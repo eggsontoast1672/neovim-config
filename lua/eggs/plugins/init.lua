@@ -1,54 +1,18 @@
-local plugins = {
-    "L3MON4D3/LuaSnip",
-    "folke/neodev.nvim",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-cmdline",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-path",
-    "hrsh7th/nvim-cmp",
-    "saadparwaiz1/cmp_luasnip",
-    "tribela/vim-transparent",
-    "williamboman/mason-lspconfig.nvim",
+local M = {}
 
-    ----------------
+M.setup = function()
+    local bootstrap = require("eggs.bootstrap").ensure_packer()
+    local packer = require("packer")
+    local plugins = require("eggs.settings").plugins
+    packer.startup(function(use)
+        use("wbthomason/packer.nvim")
+	for _, plugin in pairs(plugins) do
+            use(plugin)
+	end
+	if bootstrap then
+	    packer.sync()
+	end
+    end)
+end
 
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
-            require("eggs.plugins.lspconfig")
-        end,
-    },
-    {
-        "nvim-telescope/telescope.nvim",
-        config = function()
-            require("eggs.plugins.telescope")
-        end,
-        requires = {
-            "nvim-lua/plenary.nvim",
-        },
-        tag = "0.1.1",
-    },
-    {
-        "nvim-treesitter/nvim-treesitter",
-        config = function()
-            require("eggs.plugins.treesitter")
-        end,
-        run = function()
-            pcall(vim.cmd.TSUpdate)
-        end,
-    },
-    {
-        "sainnhe/gruvbox-material",
-        config = function()
-            vim.cmd.colorscheme("gruvbox-material")
-        end,
-    },
-    {
-        "williamboman/mason.nvim",
-        run = function()
-            pcall(vim.cmd.MasonUpdate)
-        end,
-    },
-}
-
-return plugins
+return M
