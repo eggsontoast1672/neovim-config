@@ -1,4 +1,4 @@
-local servers = require("eggs.settings").lsp_servers
+require("lspconfig.ui.windows").default_options.border = "rounded"
 
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
@@ -29,8 +29,9 @@ end
 require("neodev").setup()
 require("mason").setup()
 
-local mason_lspconfig = require("mason-lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local mason_lspconfig = require("mason-lspconfig")
+local servers = require("eggs.settings").lsp_servers
 
 -- If this breaks stuff, comment it out. Added for jsonls
 capabilities.textDocument.completion.completionItem.snippetSupport = true

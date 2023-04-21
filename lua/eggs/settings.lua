@@ -52,7 +52,6 @@ M.plugins = {
     "hrsh7th/cmp-path",
     "hrsh7th/nvim-cmp",
     "saadparwaiz1/cmp_luasnip",
-    "tribela/vim-transparent",
     "williamboman/mason-lspconfig.nvim",
 
     ----------------
@@ -86,6 +85,12 @@ M.plugins = {
         "sainnhe/gruvbox-material",
         config = function()
             vim.cmd.colorscheme("gruvbox-material")
+        end,
+    },
+    {
+        "tribela/vim-transparent",
+        config = function()
+            require("eggs.plugins.transparent").setup()
         end,
     },
     {
