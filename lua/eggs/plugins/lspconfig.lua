@@ -1,7 +1,3 @@
-local M = {}
-
-print("Hello! #1")
-
 ---@param _ any
 ---@param bufnr number|boolean
 local on_attach = function(_, bufnr)
@@ -75,7 +71,12 @@ local setup_cmp = function()
         }),
     })
 
-    return require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+    -- If this breaks stuff, comment it out. Added for jsonls
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+    return capabilities
 end
 
 ---@param capabilities table
@@ -99,7 +100,7 @@ local setup_mason = function(capabilities)
     })
 end
 
-M.setup = function()
+local setup = function()
     print("Hello!")
 
     require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -113,10 +114,25 @@ M.setup = function()
 
     local capabilities = setup_cmp()
 
-    -- If this breaks stuff, comment it out. Added for jsonls
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-
     setup_mason(capabilities)
 end
 
-return M
+require("lspconfig.ui.windows").default_options.border = "rounded"
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = "rounded",
+})
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded",
+})
+
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+
+require("neodev").setup()
+
+local capabilities = setup_cmp()
+
+setup_mason(capabilities)
