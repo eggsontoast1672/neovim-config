@@ -1,5 +1,9 @@
 local M = {}
 
+M.formatters = {
+    "clang-format",
+}
+
 M.globals = {
     mapleader = " "
 }
@@ -51,6 +55,7 @@ M.plugins = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
     "hrsh7th/nvim-cmp",
+    "lukas-reineke/lsp-format.nvim",
     "saadparwaiz1/cmp_luasnip",
     "williamboman/mason-lspconfig.nvim",
 
@@ -59,7 +64,7 @@ M.plugins = {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            require("eggs.plugins.lspconfig")
+            require("eggs.plugins.lspconfig").setup()
         end,
     },
     {
