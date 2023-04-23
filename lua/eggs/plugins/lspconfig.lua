@@ -82,7 +82,7 @@ local setup_servers = function(capabilities)
     require("mason").setup()
 
     local mason_lspconfig = require("mason-lspconfig")
-    local servers = require("eggs.settings").lsp_servers
+    local servers = require("eggs.settings").lsp.servers
 
     mason_lspconfig.setup({
         ensure_installed = vim.tbl_keys(servers),
