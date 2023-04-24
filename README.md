@@ -1,4 +1,4 @@
-# Neovim Config
+# My Neovim Configuration
 
 There comes a day in everyone's life when they decide that having to rewrite
 their neovim config over and over again is really tedious and boring. There's a
@@ -12,5 +12,5 @@ to have Packer, the plugin manager, bootstrapped so that I don't have to clone
 it down manually every time. It just makes everything easier. Aside from that,
 there are a few other programs that need to be installed.
 
-- ripgrep (for faster greping)
-- fd      (for faster finding)
+- `npm`     (for automatic installing of language servers)
+- `ripgrep` (for telescope project-wide search)

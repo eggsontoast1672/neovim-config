@@ -98,17 +98,23 @@ local setup_servers = function(capabilities)
     })
 end
 
+local setup_ui = function()
+    local border = require("eggs.settings").window.border
+
+    require("lspconfig.ui.windows").default_options.border = border
+
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = border,
+    })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+        border = border,
+    })
+end
+
 M.setup = function()
     local settings = require("eggs.settings")
 
-    require("lspconfig.ui.windows").default_options.border = settings.window.border
-
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = settings.window.border,
-    })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = settings.window.border,
-    })
+    setup_ui()
 
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
