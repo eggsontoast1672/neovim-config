@@ -23,66 +23,13 @@ local on_attach = function(_, bufnr)
     keymap_set("n", "gr", builtin.lsp_references)
 end
 
----@return table
-local setup_completion = function(capabilities)
-    local cmp = require("cmp")
-
-    cmp.setup({
-        mapping = cmp.mapping.preset.insert({
-            ["<c-e>"] = cmp.mapping.abort(),
-            ["<c-space>"] = cmp.mapping.complete(),
-            ["<tab>"] = cmp.mapping.confirm({ select = true }),
-            ["<c-f>"] = cmp.mapping.scroll_docs(4),
-            ["<c-b>"] = cmp.mapping.scroll_docs(-4),
-        }),
-        snippet = {
-            expand = function(args)
-                require("luasnip").lsp_expand(args.body)
-            end,
-        },
-        sources = cmp.config.sources({
-            { name = "nvim_lsp" },
-            { name = "luasnip" },
-        }, {
-            { name = "buffer" },
-        }),
-        window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
-        },
-    })
-    cmp.setup.filetype("gitcommit", {
-        sources = cmp.config.sources({
-            { name = "cmp_git" },
-        }, {
-            { name = "buffer" },
-        }),
-    })
-    cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            { name = "buffer" },
-        },
-    })
-    cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-            { name = "path" },
-        }, {
-            { name = "cmdline" },
-        }),
-    })
-
-    return require("cmp_nvim_lsp").default_capabilities(capabilities)
-end
-
 ---@param capabilities table
 local setup_servers = function(capabilities)
     require("neodev").setup()
     require("mason").setup()
 
     local mason_lspconfig = require("mason-lspconfig")
-    local servers = require("eggs.settings").lsp.servers
+    local servers = require("eggs.settings.lsp").servers
 
     mason_lspconfig.setup({
         ensure_installed = vim.tbl_keys(servers),
@@ -112,8 +59,6 @@ local setup_ui = function()
 end
 
 M.setup = function()
-    local settings = require("eggs.settings")
-
     setup_ui()
 
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
@@ -126,11 +71,11 @@ M.setup = function()
     -- For jsonls
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-    if settings.completion.enabled then
-        capabilities = setup_completion(capabilities)
+    if require("eggs.settings").completion.enabled then
+        capabilities = require("eggs.plugins.cmp").setup(capabilities)
     end
 
-    if settings.lsp.enabled then
+    if require("eggs.settings.lsp").enabled then
         setup_servers(capabilities)
     end
 end

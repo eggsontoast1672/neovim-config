@@ -7,6 +7,7 @@ M.setup = function()
 
     packer.startup(function(use)
         use("L3MON4D3/LuaSnip")
+        use("andweeb/presence.nvim")
         use("folke/neodev.nvim")
         use("hrsh7th/cmp-buffer")
         use("hrsh7th/cmp-cmdline")
@@ -14,6 +15,14 @@ M.setup = function()
         use("hrsh7th/cmp-path")
         use("hrsh7th/nvim-cmp")
         use("lukas-reineke/lsp-format.nvim")
+        use("saadparwaiz1/cmp_luasnip")
+        use("sainnhe/gruvbox-material")
+        use("wbthomason/packer.nvim")
+        use("williamboman/mason-lspconfig.nvim")
+        use({
+            "catppuccin/nvim",
+            as = "catppuccin",
+        })
         use({
             "neovim/nvim-lspconfig",
             config = function()
@@ -37,27 +46,18 @@ M.setup = function()
                 pcall(vim.cmd.TSUpdate)
             end,
         })
-        use("saadparwaiz1/cmp_luasnip")
-        use({
-            "sainnhe/gruvbox-material",
-            config = function()
-                vim.cmd.colorscheme("gruvbox-material")
-            end,
-        })
         use({
             "tribela/vim-transparent",
             config = function()
                 require("eggs.plugins.transparent").setup()
             end,
         })
-        use("wbthomason/packer.nvim")
         use({
             "williamboman/mason.nvim",
             run = function()
                 pcall(vim.cmd.MasonUpdate)
             end,
         })
-        use("williamboman/mason-lspconfig.nvim")
 
         if bootstrap then
             packer.sync()
