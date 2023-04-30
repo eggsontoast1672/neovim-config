@@ -1,10 +1,7 @@
 local M = {}
 
-M.setup = function()
-    -- TODO: Get this to work!
-    -- vim.cmd([[
-    --     echo g:transparent_groups
-    -- ]])
+M.setup = function(use)
+    use("tribela/vim-transparent")
 end
 
 return M
