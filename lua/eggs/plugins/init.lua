@@ -9,19 +9,15 @@ M.setup = function()
         use("L3MON4D3/LuaSnip")
         use("andweeb/presence.nvim")
         use("folke/neodev.nvim")
+        use("folke/tokyonight.nvim")
         use("hrsh7th/cmp-buffer")
         use("hrsh7th/cmp-cmdline")
         use("hrsh7th/cmp-nvim-lsp")
         use("hrsh7th/cmp-path")
         use("hrsh7th/nvim-cmp")
         use("saadparwaiz1/cmp_luasnip")
-        use("sainnhe/gruvbox-material")
         use("wbthomason/packer.nvim")
         use("williamboman/mason-lspconfig.nvim")
-        use({
-            "catppuccin/nvim",
-            as = "catppuccin",
-        })
         use({
             "neovim/nvim-lspconfig",
             config = function()

@@ -2,7 +2,6 @@ return {
     enabled = true,
     servers = {
         clangd = {},
-        gopls = {},
         jsonls = {},
         lua_ls = {
             Lua = {

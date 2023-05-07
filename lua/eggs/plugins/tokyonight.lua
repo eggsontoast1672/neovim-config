@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-    vim.cmd.colorscheme("catppuccin")
+    vim.cmd.colorscheme("tokyonight-storm")
 end
 
 return M
