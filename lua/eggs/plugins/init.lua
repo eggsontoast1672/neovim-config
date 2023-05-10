@@ -16,6 +16,7 @@ M.setup = function()
         use("hrsh7th/cmp-path")
         use("hrsh7th/nvim-cmp")
         use("saadparwaiz1/cmp_luasnip")
+        use("sainnhe/gruvbox-material")
         use("wbthomason/packer.nvim")
         use("williamboman/mason-lspconfig.nvim")
         use({

@@ -14,3 +14,10 @@ there are a few other programs that need to be installed.
 
 - `npm`     (for automatic installing of language servers)
 - `ripgrep` (for telescope project-wide search)
+
+## TODO
+
+- Find a place for...
+    - Autocommands
+    - Global variable setup
+    - Keymaps

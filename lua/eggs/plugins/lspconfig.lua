@@ -28,21 +28,39 @@ local setup_servers = function(capabilities)
     require("neodev").setup()
     require("mason").setup()
 
+    local servers = {}
     local mason_lspconfig = require("mason-lspconfig")
-    local servers = require("eggs.settings.lsp").servers
+
+    -- Only install a server if it's enabled in settings
+    for _, language in pairs(require("eggs.settings").languages) do
+        if language.enabled then
+            table.insert(servers, language.server)
+        end
+    end
 
     mason_lspconfig.setup({
-        ensure_installed = vim.tbl_keys(servers),
+        ensure_installed = servers,
     })
-    mason_lspconfig.setup_handlers({
-        function(server)
-            require("lspconfig")[server].setup({
+
+    -- mason_lspconfig.setup_handlers({
+    --     function(server)
+    --         require("lspconfig")[server].setup({
+    --             capabilities = capabilities,
+    --             on_attach = on_attach,
+    --             settings = servers[server],
+    --         })
+    --     end,
+    -- })
+
+    for _, language in pairs(require("eggs.settings").languages) do
+        if language.enabled then
+            require("lspconfig")[language.server].setup({
                 capabilities = capabilities,
                 on_attach = on_attach,
-                settings = servers[server],
+                settings = language.settings,
             })
-        end,
-    })
+        end
+    end
 end
 
 local setup_ui = function()
@@ -75,9 +93,7 @@ M.setup = function()
         capabilities = require("eggs.plugins.cmp").setup(capabilities)
     end
 
-    if require("eggs.settings.lsp").enabled then
-        setup_servers(capabilities)
-    end
+    setup_servers(capabilities)
 end
 
 return M
