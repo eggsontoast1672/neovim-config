@@ -3,24 +3,33 @@ local M = {}
 ---@param _ any
 ---@param bufnr number|boolean
 local on_attach = function(_, bufnr)
-    local keymap_set = function(mode, lhs, rhs)
+    local set_keymap = function(mode, lhs, rhs)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr })
     end
 
-    keymap_set("n", "<leader>ca", vim.lsp.buf.code_action)
-    keymap_set("n", "gD", vim.lsp.buf.declaration)
-    keymap_set("n", "gd", vim.lsp.buf.definition)
-    keymap_set("n", "K", vim.lsp.buf.hover)
-    keymap_set("n", "gI", vim.lsp.buf.implementation)
-    keymap_set("n", "<leader>rn", vim.lsp.buf.rename)
-    keymap_set("n", "<c-k>", vim.lsp.buf.signature_help)
-    keymap_set("n", "<leader>D", vim.lsp.buf.type_definition)
+    -- stylua: ignore start
 
-    local builtin = require("telescope.builtin")
+    set_keymap("n", "<leader>la",   vim.lsp.buf.code_action)
+    set_keymap("n", "gD",           vim.lsp.buf.declaration)
+    set_keymap("n", "gd",           vim.lsp.buf.definition)
+    set_keymap("n", "<leader>lf",   vim.lsp.buf.format)
+    set_keymap("n", "K",            vim.lsp.buf.hover)
+    set_keymap("n", "gI",           vim.lsp.buf.implementation)
+    set_keymap("n", "gr",           vim.lsp.buf.references)
+    set_keymap("n", "<leader>lr",   vim.lsp.buf.rename)
+    set_keymap("n", "<c-k>",        vim.lsp.buf.signature_help)
+    set_keymap("n", "<leader>D",    vim.lsp.buf.type_definition)
 
-    keymap_set("n", "<leader>ds", builtin.lsp_document_symbols)
-    keymap_set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols)
-    keymap_set("n", "gr", builtin.lsp_references)
+    -- stylua: ignore end
+
+    set_keymap("n", "gl", function() -- From LunarVim source
+        local float = vim.diagnostic.config().float
+        if float then
+            local config = type(float) == "table" and float or {}
+            config.scope = "line"
+            vim.diagnostic.open_float(config)
+        end
+    end)
 end
 
 ---@param capabilities table
@@ -78,11 +87,6 @@ end
 
 M.setup = function()
     setup_ui()
-
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-    vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-    vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 

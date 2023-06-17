@@ -12,6 +12,12 @@ local M = {
             server = "clangd",
             settings = {},
         },
+        haskell = {
+            enabled = true,
+            parser = "haskell",
+            server = "hls",
+            settings = {},
+        },
         java = {
             enabled = true,
             parser = "java",
