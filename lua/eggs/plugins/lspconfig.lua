@@ -11,6 +11,7 @@ local servers = {
             },
         },
     },
+    ocamllsp = {},
     rust_analyzer = {},
 }
 
@@ -56,9 +57,13 @@ require("mason-lspconfig").setup({
 })
 
 for server, settings in pairs(servers) do
+    if server == "clangd" then
+        goto continue
+    end
     require("lspconfig")[server].setup({
         capabilities = capabilities,
         on_attach = on_attach,
         settings = settings,
     })
+    ::continue::
 end
