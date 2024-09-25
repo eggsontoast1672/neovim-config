@@ -1,1 +1,3 @@
-plugin/
+# Don't commit this file! The user of the config is meant to create it
+# themselves.
+lua/config/lsp/servers.lua
